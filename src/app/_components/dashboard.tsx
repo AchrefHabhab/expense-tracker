@@ -13,6 +13,7 @@ import { TransactionList } from './transaction-list';
 import { Charts } from './charts';
 import { BudgetOverview } from './budget-overview';
 import { SpendingStats } from './spending-stats';
+import { ExportMenu } from './export-menu';
 
 interface DashboardProps {
   transactions: Transaction[];
@@ -58,6 +59,7 @@ export function Dashboard({ transactions, budget, user }: DashboardProps) {
           </div>
         </div>
         <div className="flex items-center gap-2">
+          <ExportMenu />
           <ThemeToggle />
           <Link
             href="/budget"
