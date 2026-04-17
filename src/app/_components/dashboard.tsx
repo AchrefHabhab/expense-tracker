@@ -23,20 +23,22 @@ interface DashboardProps {
 
 export function Dashboard({ transactions, budget, user }: DashboardProps) {
   const { totalIncome, totalExpenses, balance } = useMemo(() => {
-    let income = 0;
+    let transactionIncome = 0;
     let expenses = 0;
 
     for (const t of transactions) {
-      if (t.type === 'income') income += t.amount;
+      if (t.type === 'income') transactionIncome += t.amount;
       else expenses += t.amount;
     }
+
+    const income = Math.max(transactionIncome, budget?.monthlySalary ?? 0);
 
     return {
       totalIncome: income,
       totalExpenses: expenses,
       balance: income - expenses,
     };
-  }, [transactions]);
+  }, [transactions, budget?.monthlySalary]);
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-8">

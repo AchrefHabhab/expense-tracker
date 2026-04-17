@@ -16,6 +16,12 @@ export function AnimatedNumber({ value, formatFn, className }: AnimatedNumberPro
   const isInView = useInView(ref, { once: true });
 
   useEffect(() => {
+    if (ref.current) {
+      ref.current.textContent = formatFn ? formatFn(0) : '0.00';
+    }
+  }, [formatFn]);
+
+  useEffect(() => {
     if (isInView) {
       motionValue.set(value);
     }
