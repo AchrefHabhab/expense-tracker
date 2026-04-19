@@ -16,6 +16,7 @@ import { BudgetOverview } from './budget-overview';
 import { SpendingStats } from './spending-stats';
 import { ExportMenu } from './export-menu';
 import { RecurringTransactions } from './recurring-transactions';
+import { BudgetAlerts } from './budget-alerts';
 
 interface DashboardProps {
   transactions: Transaction[];
@@ -90,6 +91,12 @@ export function Dashboard({ transactions, budget, recurringTransactions, user }:
           balance={balance}
         />
       </div>
+
+      {budget && (
+        <div className="mb-6">
+          <BudgetAlerts budget={budget} transactions={transactions} />
+        </div>
+      )}
 
       <div className="mb-6">
         <AddTransaction />
