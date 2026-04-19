@@ -16,8 +16,9 @@ model User {
   password      String?
   accounts      Account[]
   sessions      Session[]
-  transactions  Transaction[]
-  budget        Budget?
+  transactions          Transaction[]
+  recurringTransactions  RecurringTransaction[]
+  budget                 Budget?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
@@ -69,6 +70,24 @@ model Transaction {
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+}
+
+model RecurringTransaction {
+  id          String   @id @default(cuid())
+  userId      String
+  description String
+  amount      Float
+  type        String
+  category    String
+  frequency   String
+  nextRunDate DateTime
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([nextRunDate, active])
 }
 
 model Budget {

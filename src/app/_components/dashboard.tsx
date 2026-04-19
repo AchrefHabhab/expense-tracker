@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Settings, Wallet } from 'lucide-react';
 import type { Transaction } from '@/types/transaction';
 import type { BudgetData } from '@/types/budget';
+import type { RecurringTransaction } from '@/types/recurring';
 import { ThemeToggle } from './theme-toggle';
 import { SummaryCards } from './summary-cards';
 import { AddTransaction } from './add-transaction';
@@ -14,14 +15,16 @@ import { Charts } from './charts';
 import { BudgetOverview } from './budget-overview';
 import { SpendingStats } from './spending-stats';
 import { ExportMenu } from './export-menu';
+import { RecurringTransactions } from './recurring-transactions';
 
 interface DashboardProps {
   transactions: Transaction[];
   budget?: BudgetData;
+  recurringTransactions: RecurringTransaction[];
   user: { name: string; image: string };
 }
 
-export function Dashboard({ transactions, budget, user }: DashboardProps) {
+export function Dashboard({ transactions, budget, recurringTransactions, user }: DashboardProps) {
   const { totalIncome, totalExpenses, balance } = useMemo(() => {
     let transactionIncome = 0;
     let expenses = 0;
@@ -107,6 +110,10 @@ export function Dashboard({ transactions, budget, user }: DashboardProps) {
           transactions={transactions}
           monthlySalary={budget?.monthlySalary ?? 0}
         />
+      </div>
+
+      <div className="mb-6">
+        <RecurringTransactions items={recurringTransactions} />
       </div>
 
       <TransactionList transactions={transactions} />
