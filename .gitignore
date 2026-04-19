@@ -91,3 +91,6 @@ src/generated/
 # AI config files (project-specific, not for repo)
 CLAUDE.md
 AGENTS.md
+
+# Local Netlify folder
+.netlify
